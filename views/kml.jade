@@ -1,0 +1,23 @@
+//- kml for the export feature
+doctype xml
+kml(xmlns="http://www.opengis.net/kml/2.2")
+	Document
+		each bairro, index in bairros
+			Style(id="poly-#{index}")
+				PolyStyle
+					color #{bairro.color}
+					colorMode normal
+					fill 1
+					outline 1
+				LineStyle
+					color #FF333333
+					width 1
+		each bairro, index in bairros
+			Placemark
+				styleUrl #poly-#{index}
+				extrude 1
+				tessellate 1
+				name #{bairro.nome}
+				quantidade #{bairro.count}
+				!{bairro.xml}
+			
