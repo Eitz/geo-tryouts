@@ -1,0 +1,35 @@
+<h3>Cadastrar ocorrencia:</h3>
+<hr />
+<form class="form-inline">
+	<div class="form-group">
+    <label>Descrição </label>
+    <input type="text" class="form-control" ng-model="descricaoOcorrencia" placeholder="Jane Doe">
+  </div>
+	<div class="form-group">
+    <label>Tipo </label>
+    <select ng-model="tipoOcorrencia">
+			<option value="1">Pancadaria</option>
+			<option value="2">Socos</option>
+		</select>
+  </div>
+	<hr />
+	<h4> Ponto </h4>
+	<div class="form-inline">
+		<div class="form-group">
+			<label>Lat</label>
+			<input type="text" class="form-control" ng-model="point.x">
+		</div>
+		<div class="form-group">
+			<label>Long</label>
+			<input type="text" class="form-control" ng-model="point.y">
+		</div>
+	</div>
+	<hr />
+	<button class="btn btn-default" type="button" ng-click="saveOcorrencia()">Salvar</button>
+</form>
+<br />
+<h3> Ocorrências já cadastrados </h3>
+<p ng-repeat="ocorrencia in ocorrenciasCadastradas">
+	{{ ocorrencia.descricao }}, {{ ocorrencia.ponto }}
+	<button type="button" ng-click="removeOcorrencia(ocorrencia)" class="btn btn-default btn-sm">-</button>
+</p>

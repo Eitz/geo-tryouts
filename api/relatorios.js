@@ -4,7 +4,7 @@ var router = express.Router();
 var db = require('../db');
 db = db.postgres;
 
-// root: /api/ocorrencias/
+// root: /api/relatorios/
 router.get('/por-bairro', porBairro);
 
 function porBairro (req, res, next) {

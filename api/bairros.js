@@ -9,7 +9,15 @@ router.get('/', getAll);
 router.post('/', create);
 router.get('/:id', get);
 router.put('/:id', update);
+router.options('/:id', options);
 router.delete('/:id', remove);
+
+function options (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'DELETE');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
+  next();
+}
 
 // add query functions
 function getAll(req, res, next) {
@@ -45,12 +53,15 @@ function create(req, res, next) {
 
   var points = [];
 
+  console.log(req.body.nome);
+  console.log(req.body.pontos);
+
   req.body.pontos.forEach(function(point) {
     points.push(point.x + ' ' + point.y);
   }, this);
 
-  if (points.length < 3) {
-    var err = new Error("Pontos must be >= 3");
+  if (points.length <= 3) {
+    var err = new Error("Pontos must be > 3");
     return next(err);
   }
 

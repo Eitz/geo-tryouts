@@ -1,0 +1,15 @@
+<h4>Relatório: por Bairro.</h4>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Nome</th>
+			<th>Quantidade de ocorrências</th>
+		</tr>
+	<tbody>
+		<tr ng-repeat="row in relatorio">
+			<td>{{row.nome}}</td>
+			<td>{{row.count}}</td>
+		</tr>
+	</tbody>
+</table>

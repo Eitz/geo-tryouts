@@ -9,7 +9,15 @@ router.get('/', getAll);
 router.post('/', create);
 router.get('/:id', get);
 router.put('/:id', update);
+router.options('/:id', options);
 router.delete('/:id', remove);
+
+function options (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'DELETE');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
+  next();
+}
 
 // add query functions
 function getAll(req, res, next) {
@@ -62,6 +70,8 @@ function get(req, res, next) {
 
 function create(req, res, next) {
   console.log(req.body);
+  req.body.x = req.body.ponto.x * 1;
+  req.body.y = req.body.ponto.y * 1;
   db.none('INSERT INTO ocorrencia (descricao, tipo_id, geometria) VALUES (' 
     + '${descricao},'
     + '${tipo_id},'
@@ -83,7 +93,7 @@ function update(req, res, next) {
   db.none('UPDATE ocorrencia SET' 
     + ' descricao=${descricao},'
     + ' tipo_id=${tipo_id},'
-  	+ ' geometria=st_geomfromtext(\'POINT(${x} ${y})\', 4326)'
+  	+ ' geometria=st_geomfromtext(\'POINT(${ponto.x} ${ponto.y})\', 4326)'
     + ' WHERE id = ${id};',
    req.body)
     .then(function () {
